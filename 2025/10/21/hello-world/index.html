@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <script>
+    (function() {
+      try {
+        // 1. 优先从 localStorage 获取用户保存的主题
+        var savedTheme = localStorage.getItem('theme');
+        
+        // 2. 如果没有保存的主题，则检查系统偏好
+        var theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // 3. 将主题属性应用到 <html> 元素上
+        //    在 <head> 中执行时，<body> 可能还不存在，所以操作 <html> 更安全
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        // 如果发生错误，则不执行任何操作，让主脚本来处理
+      }
+    })();
+  </script>
+  
+  <!-- 提示浏览器颜色的 meta 标签 -->
+  <meta name="color-scheme" content="light dark">
+  <!-- Mastodon 验证 -->
+  <meta name="fediverse:creator" content="@illlights@anisaga.life">
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>maybe a good night [ LDN&#39;s Blog ]</title>
+
+  <link rel="icon" href="/img/icon_output.ico">
+
+
+    <meta name="author" content="LDN97">
+
+
+    <meta name="subtitle" content="LDN's Blog">
+
+
+    <meta name="Description" content="分享程式，日常，遊戲評論等各種主題的部落格">
+
+
+    <meta name="keywords" content=",程式, 技術, 遊戲, 日常">
+
+
+  <link rel="alternate" href="/atom.xml " title="LDN&#39;s Blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+
+<!-- 隨機背景圖片 -->
+<script src="/js/random-bg.js"></script>
+<meta name="generator" content="Hexo 8.0.0"></head>
+<body class="notransition">
+  <!-- <script defer>
+    // 延迟移除 notransition 类，确保初始主题设置完成
+    setTimeout(() => document.body.classList.remove("notransition"), 75);
+  </script> -->
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> 主頁</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> 文章</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/friends/"> 友鏈</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> 關於</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E6%97%A5%E5%B8%B8/" class="tag"># 日常</a><a href="/tags/%E7%B4%80%E9%8C%84/" class="tag"># 紀錄</a>
+          </div>
+        
+          <h1 class="header-title" itemprop="headline">maybe a good night</h1>
+          <div class="post-meta">
+            最后更新: <time>10月 21, 2025</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">LDN97</span>
+            </span>
+            字数: <span class="post-count">558</span>
+            预计阅读时间: <span class="post-count">1min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><p>現在大概是凌晨一點，也差不多把這個網站架好了。想著網站上線前，總得至少有一篇文章，所以打算隨手紀錄一下。</p>
+<hr>
+<p>其實架網站沒有想像中那麼難，有 Hexo 這種東西加上別人的主題模板，熟練一點大概半天就能搞定。<br>不過第一次寫文章反而有點不知道該寫什麼，平常躺在床上發限動明明隨便寫就一大堆的。</p>
+<p>會做這個網站的動機其實很簡單，就是看到群友發了自己的 blog，又看到美術生朋友也有自己的小網頁，想著「別人都有，我怎麼能沒有」，就動手做了這個網站。</p>
+<p>做這個網站最大的困難，除了不知道文章要寫什麼之外，大概就是處理背景圖片了。<br>這個網站主題是來自 <a target="_blank" rel="noopener" href="https://blog.illlights.com/">「illlights」</a> 的 <a target="_blank" rel="noopener" href="https://github.com/RichardTang2003/hexo-theme-Klise-glassy">Klise-glassy</a> ，當時是在研究吉里吉里引擎解包的時候看到他的文章。第一眼就被他的網站風格吸引，後來在找主題時也是第一個想到他的風格 —— 真的很好看啊。</p>
+<p>扯遠了。<br>為什麼說處理背景圖麻煩呢？因為這個作者原本是用自己的圖片 API 來實現隨機背景的功能（而且背景好多都是 galgame，理工男怎麼都這樣啊）。<br>最後我還是把他的 API 拿掉，改成放上自己喜歡的圖片。結果花了一整晚到處找圖，最後還是找了一堆 gal 的 CG（理工男怎麼都這樣啊）。</p>
+<p>也沒什麼好說的，就先這樣吧。<br>接下來應該處理一下友鏈的部分，就能準備上線了。<br>我還沒研究怎麼部署網站，或是有哪些需要注意的地方，不過就一個靜態網站應該也沒什麼 Token 問題吧。<br>我比較擔心的是更新和流量的問題，不過晚點再說吧。</p>
+<p><del>我在想，今晚把網站上線之後要不要丟給我媽看，然後明天跟她說我整個晚上都在搞這個，讓我請個假寫點東西。哈哈，大概是不行吧。</del></p>
+</div>          
+          <nav class="post-nav">
+    
+    
+  </nav>
+          <div class="dis">
+    
+        
+             
+        
+        
+    
+</div>
+    </div>
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © Site by LDN97<br>
+        <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> &
+        <a target="_blank" rel="noopener" href="https://github.com/RichardTang2003/hexo-theme-Klise-glassy">Klise-glassy</a>
+        <br>
+        始於2025.
+        
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <!-- <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script> -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 当 DOM 内容加载完成后，为 body 添加 'loaded' 类
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+</html>
