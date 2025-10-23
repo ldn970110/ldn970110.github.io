@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>moments [ LDN&#39;s Blog ]</title>
+<title>動態 [ LDN&#39;s Blog ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -242,6 +242,14 @@
             
             
             
+            <a class="menu-link active" href="/moments/"> 動態</a>
+          
+            
+            
+            
+            
+            
+            
             <a class="menu-link " href="/archives/"> 文章</a>
           
             
@@ -265,40 +273,46 @@
     </nav>
   </div>
   
+<link rel="stylesheet" href="/css/moments.css">
+
+
 <div class="wrapper">
-  <header class="header">
-    <h1 class="header-title center">moments</h1>
-  </header>
-  
+    <header class="header">
+        <h1 class="header-title center">動態</h1>
+        
+        <div class="moments-description">
+            <p>當限動亂發</p>
+
+        </div>
+        
+    </header>
+
     <main class="page-content" aria-label="Content">
-    <div class="post glass-wrapper main-content">        
-        
-    </div>
-         <div class="dis">
-    
-        
-            
-<div id="tcomment" class="twikoo-container"></div>
-<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
-<script>
-  twikoo.init({
-    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
-    el: '#tcomment',
-    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
-    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
-    // lang: 'zh-CN', // 可選：設定語言
-  });
-</script> 
-        
-        
-    
-</div>
+        <div id="moments-page">
+            <div id="mastodon-timeline">
+                <!-- 初始加载提示 -->
+                <div class="timeline-loading">
+                    <div class="spinner"></div>
+                    <span>正在加载动态...</span>
+                </div>
+            </div>
+
+            <!-- 加载更多按钮 -->
+            <button id="load-more-btn">加载更多</button>
+
+            <!-- 全部加载完成的提示 -->
+            <div id="no-more-posts-placeholder"></div>
+        </div>
     </main>
-    
 </div>
 
 
+<script>
+// 将 Hexo 主题配置传递给 JavaScript
+window.momentsConfig = {"mastodon":{"enable":true,"api":"https://mastodon.social/api/v1/accounts/@ldn970110/statuses","initialLimit":5,"loadMoreLimit":10},"bangumi":{"enable":true,"api":"https://api.bgm.tv/v0/users/1170648/collections?type=2&limit=5&offset=","loadMoreLimit":3}};
+</script>
 
+<script src="/js/moments.js"></script>
 
 
   <footer class="footer">
