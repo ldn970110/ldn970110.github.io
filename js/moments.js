@@ -236,10 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchAndRenderTimeline = async (mastodonUrl, isFirstLoad = false) => {
         if (state.isLoading) return;
         state.isLoading = true;
-        loadMoreBtn.textContent = '加载中...';
+        loadMoreBtn.textContent = '載入中...';
         // 首次加载时先显示 loading 占位符，不要立即清空内容
         if (isFirstLoad) {
-            timelineContainer.innerHTML = '<div class="timeline-loading">加载中...</div>';
+            timelineContainer.innerHTML = '<div class="timeline-loading">載入中...</div>';
         }
         try {
             let mastodonRes, bangumiRes;
@@ -312,14 +312,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadMoreBtn.style.display = 'block';
             } else {
                 loadMoreBtn.style.display = 'none';
-                noMorePostsPlaceholder.innerHTML = '<p class="no-more-posts">已经没有更多动态了</p>';
+                noMorePostsPlaceholder.innerHTML = '<p class="no-more-posts">已经沒有更多動態了</p>';
             }
         } catch (error) {
             console.error('获取时间线失败:', error);
             timelineContainer.innerHTML = '<p>动态加载失败，请检查网络或刷新页面。</p>';
         } finally {
             state.isLoading = false;
-            loadMoreBtn.textContent = '加载更多';
+            loadMoreBtn.textContent = '載入更多';
         }
     };
 
