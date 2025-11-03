@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LDN&#39;s Blog [ LDN&#39;s Blog ]</title>
+<title> Archives : 11/2025: 2025 [ LDN&#39;s Blog ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -234,7 +234,7 @@
             
             
             
-            <a class="menu-link active" href="/"> 主頁</a>
+            <a class="menu-link " href="/"> 主頁</a>
           
             
             
@@ -272,79 +272,64 @@
       </div>
     </nav>
   </div>
-    <div class="wrapper">
-    <div class="author">
-        <div class="author-avatar-wrapper">
-<img
-  class="author-avatar"
-  src="/img/avatar/LDN.JPEG"  
-  alt="avatar"
-  loading="lazy"
-/>
-      </div>
-      <h2 class="author-name">LDN97</h2>
-      <p class="author-bio">Too young, too naive.</p>
-    </div>
-    
-    <main aria-label="Content" class="glass-wrapper main-content">
+  
+
+
+  <div class="wrapper">
+    <main class="page-content">
+    <header class="header">
+      <h1 class="header-title center">Archives</h1>
+    </header>
+    <div class="archive-container glass-wrapper main-content">    
       
-
-    <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
-    
-    
-      <article class="post-item list-hover" style="--post-index: 1;">
-        <span class="post-item-date" datetime="2025-11-03T03:38:35.133Z">11月 03, 2025</span>
-        <div class="post-item-heading">
-          <h4 class="post-item-title">
-            <a href="/2025/11/03/scist-s6-1-hw/"></a>
-          </h4>
+      
+      <div class="monthly-archives">
+        
           
-        </div>
-      </article>
-    
-      <article class="post-item list-hover" style="--post-index: 2;">
-        <span class="post-item-date" datetime="2025-10-25T01:59:00.000Z">10月 25, 2025</span>
-        <div class="post-item-heading">
-          <h4 class="post-item-title">
-            <a href="/2025/10/25/scist-s6-1/">scist s6 資安筆記</a>
-          </h4>
-          
-            <ul class="post-item-categories">
+          <div class="archive-month-group">
+            <h2 class="archive-month-title">
+              2025年 十一月
+              <span class="post-count">(1篇)</span>
+            </h2>
+            
+            <ul class="archive-post-list">
               
-                <li><a href="/categories/%E7%B4%80%E9%8C%84/">紀錄</a></li>
-              
-                <li><a href="/categories/%E7%B4%80%E9%8C%84/%E8%B3%87%E5%AE%89/">資安</a></li>
+                <li class="archive-post-item glass-wrapper archive-item">
+                  <time class="post-date" datetime="2025-11-03T03:38:35.133Z">
+                    11-03
+                  </time>
+                  <a href="/2025/11/03/scist-s6-1-hw/" class="post-title">
+                    
+                  </a>
+                  
+                  
+                </li>
               
             </ul>
-          
-        </div>
-      </article>
-    
-      <article class="post-item list-hover" style="--post-index: 3;">
-        <span class="post-item-date" datetime="2025-10-20T16:53:31.000Z">10月 21, 2025</span>
-        <div class="post-item-heading">
-          <h4 class="post-item-title">
-            <a href="/2025/10/21/hello-world/">maybe a good night</a>
-          </h4>
-          
-            <ul class="post-item-categories">
-              
-                <li><a href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li>
-              
-            </ul>
-          
-        </div>
-      </article>
-    
-
-
+          </div>
+        
+      </div>
+    </div>
       <nav class="pagination">
         <span class="page-number current">1</span>
       </nav>
-      
     </main>
   </div>
-
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const yearToggles = document.querySelectorAll('.year-toggle');
+      
+      yearToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const year = this.dataset.year;
+          const content = document.querySelector(`.year-content[data-year="${year}"]`);
+          content.classList.toggle('collapsed');
+          this.textContent = content.classList.contains('collapsed') ? '展开' : '折叠';
+        });
+      });
+    });
+    </script>
   <footer class="footer">
     <small class="footer_copyright">
       <div id="bottom-inner">

