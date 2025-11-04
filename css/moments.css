@@ -627,7 +627,7 @@ html[data-theme=dark] .media-attachments img:hover {
 }
 
 .media-attachments img[style*="display: none"] + .image-placeholder::before {
-  content: "图片加载失败";
+  content: "圖片載入失敗";
 }
 
 /* 加载动画 */

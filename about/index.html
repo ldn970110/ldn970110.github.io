@@ -33,7 +33,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>about [ LDN&#39;s Blog ]</title>
 
-  <link rel="icon" href="/img/icon_output.ico">
+  <link rel="icon" href="/img/favicon.ico">
 
 
     <meta name="author" content="LDN97">
@@ -242,6 +242,14 @@
             
             
             
+            <a class="menu-link " href="/moments/"> 動態</a>
+          
+            
+            
+            
+            
+            
+            
             <a class="menu-link " href="/archives/"> 文章</a>
           
             
@@ -278,7 +286,20 @@
          <div class="dis">
     
         
-
+            
+<div id="tcomment" class="twikoo-container"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
+<script>
+  twikoo.init({
+    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
+    el: '#tcomment',
+    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
+    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
+    // lang: 'zh-CN', // 可選：設定語言
+  });
+</script> 
+        
+        
     
 </div>
     </main>
