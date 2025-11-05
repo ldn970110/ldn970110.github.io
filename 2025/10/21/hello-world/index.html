@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oops! 找不到頁面。 [ Record of my Journey ]</title>
+<title>maybe a good night [ Record of my Journey ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -280,18 +280,88 @@
       </div>
     </nav>
   </div>
-  
-<div class="wrapper">
-    <main aria-label="Content">
-        <div class="not-found glass-wrapper main-content">
-        <div class="container">
-            <div class="title">404</div>
-            <p class="phrase">Hmm... Seems you lost from my journey.</p>
-            <a class="solution" href="https://ldn970110.github.io">back home</a>
-        </div>
-        </div>
-    </main>  
-</div>    
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E5%BF%83%E5%BE%97/" class="tag"># 心得</a><a href="/tags/%E7%B4%80%E9%8C%84/" class="tag"># 紀錄</a>
+          </div>
+        
+          <h1 class="header-title" itemprop="headline">maybe a good night</h1>
+          <div class="post-meta">
+            最後更新: <time>11月 05, 2025</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">LDN97</span>
+            </span>
+            字數: <span class="post-count">558</span>
+            預計閱讀時間: <span class="post-count">1min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><p>現在大概是凌晨一點，也差不多把這個網站架好了。想著網站上線前，總得至少有一篇文章，所以打算隨手紀錄一下。</p>
+<hr />
+<p>其實架網站沒有想像中那麼難，有 Hexo 這種東西加上別人的主題模板，熟練一點大概半天就能搞定。<br />
+不過第一次寫文章反而有點不知道該寫什麼，平常躺在床上發限動明明隨便寫就一大堆的。</p>
+<p>會做這個網站的動機其實很簡單，就是看到群友發了自己的 blog，又看到美術生朋友也有自己的小網頁，想著「別人都有，我怎麼能沒有」，就動手做了這個網站。</p>
+<p>做這個網站最大的困難，除了不知道文章要寫什麼之外，大概就是處理背景圖片了。<br />
+這個網站主題是來自 <a target="_blank" rel="noopener" href="https://blog.illlights.com/">「illlights」</a> 的 <a target="_blank" rel="noopener" href="https://github.com/RichardTang2003/hexo-theme-Klise-glassy">Klise-glassy</a> ，當時是在研究吉里吉里引擎解包的時候看到他的文章。第一眼就被他的網站風格吸引，後來在找主題時也是第一個想到他的風格 —— 真的很好看啊。</p>
+<p>扯遠了。<br />
+為什麼說處理背景圖麻煩呢？因為這個作者原本是用自己的圖片 API 來實現隨機背景的功能（而且背景好多都是 galgame，理工男怎麼都這樣啊）。<br />
+最後我還是把他的 API 拿掉，改成放上自己喜歡的圖片。結果花了一整晚到處找圖，最後還是找了一堆 gal 的 CG（理工男怎麼都這樣啊）。</p>
+<p>也沒什麼好說的，就先這樣吧。<br />
+接下來應該處理一下友鏈的部分，就能準備上線了。<br />
+我還沒研究怎麼部署網站，或是有哪些需要注意的地方，不過就一個靜態網站應該也沒什麼 Token 問題吧。<br />
+我比較擔心的是更新和流量的問題，不過晚點再說吧。</p>
+<p><s>我在想，今晚把網站上線之後要不要丟給我媽看，然後明天跟她說我整個晚上都在搞這個，讓我請個假寫點東西。哈哈，大概是不行吧。</s></p>
+</div>          
+          <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2025/10/25/scist-s6-1/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">scist s6 資安筆記</span>
+    </a>
+    
+    
+  </nav>
+          <div class="dis">
+    
+        
+            
+<div id="tcomment" class="twikoo-container"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
+<script>
+  twikoo.init({
+    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
+    el: '#tcomment',
+    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
+    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
+    // lang: 'zh-CN', // 可選：設定語言
+  });
+</script> 
+        
+        
+    
+</div>
+    </div>
+   </main>
+</div>
+
   <footer class="footer">
     <small class="footer_copyright">
       <div id="bottom-inner">

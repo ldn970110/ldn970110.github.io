@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oops! 找不到頁面。 [ Record of my Journey ]</title>
+<title>scist s6 資安筆記 [ Record of my Journey ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -280,18 +280,121 @@
       </div>
     </nav>
   </div>
-  
-<div class="wrapper">
-    <main aria-label="Content">
-        <div class="not-found glass-wrapper main-content">
-        <div class="container">
-            <div class="title">404</div>
-            <p class="phrase">Hmm... Seems you lost from my journey.</p>
-            <a class="solution" href="https://ldn970110.github.io">back home</a>
-        </div>
-        </div>
-    </main>  
-</div>    
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%96%8B%E9%A0%AD"><span class="toc-text"> 開頭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%86%E8%A8%98"><span class="toc-text"> 筆記</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gui-vs-cli"><span class="toc-text"> GUI vs CLI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shell"><span class="toc-text"> shell</span></a></li></ol>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+
+
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E7%AD%86%E8%A8%98/" class="tag"># 筆記</a><a href="/tags/%E8%B3%87%E5%AE%89/" class="tag"># 資安</a>
+          </div>
+        
+          <h1 class="header-title" itemprop="headline">scist s6 資安筆記</h1>
+          <div class="post-meta">
+            最後更新: <time>11月 05, 2025</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">LDN97</span>
+            </span>
+            字數: <span class="post-count">693</span>
+            預計閱讀時間: <span class="post-count">2min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><h2 id="開頭"><a class="markdownIt-Anchor" href="#開頭"></a> 開頭</h2>
+<p>紀錄一下，第一次上資安課有點緊張(?)<br />
+希望之後能交到朋友，一起去打比賽(該發祭品了)<br />
+然後gpt剛到期了，等去成大上機考前再續(前提是我能去)<br />
+<s>vscode括號沒關會被標記紅色，好煩</s></p>
+<h2 id="筆記"><a class="markdownIt-Anchor" href="#筆記"></a> 筆記</h2>
+<p>剛講到了zeroday，這是一個可以上傳你發現的漏洞的網站，也許之後會有用紀錄一下<br />
+開始講CTF是什麼，這讓我想到去年我天真的想在資安0基礎的情況下準備一堂CTF社課(所以我把鳳新電研社放黑歷史)<br />
+講到flag格式，<s>沒聽懂</s>，之後應該就熟悉了(吧)。<br />
+Jeopardy怎麼念<br />
+<s>OsGa英文真好</s><br />
+還有一個半小時才下課但我水快喝完了，完蛋<br />
+雖然還有飲料可以喝但我不喜歡喝飲料阿<br />
+有人把自己的discord bot token丟到github上<br />
+然後怎麼有人在課堂上鞭屍阿，嚴厲譴責<br />
+這就不得提到我把我的arch內核搞爆了然後我修不好最後整個洗掉到現在還沒重裝<br />
+什麼年代了我還能聽到熊貓燒香這個東西…<br />
+講了<code>root</code>跟<code>sudo</code>，<code>sudo</code>就是一個有授權的使用者使用<code>sudo</code>暫時借用<code>root</code>的權限來做事，比較安全且可以追溯是誰幹了哪件事</p>
+<h1 id="gui-vs-cli"><a class="markdownIt-Anchor" href="#gui-vs-cli"></a> GUI vs CLI</h1>
+<p>圖形化介面vs文字輸入介面，圖形介面易用但太慢，對開發者CLI快速且易用(但我菜雞沒有GUI我怎麼活阿)</p>
+<h1 id="shell"><a class="markdownIt-Anchor" href="#shell"></a> shell</h1>
+<p>shell就是使用者與作業系統交互的介面<br />
+shell可以做很多事(整活)<br />
+開始講指令(<code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>touch</code>, <code>cat</code>, <code>adduser</code>, <code>deluser</code>)<br />
+OsGa:<s>要期中考了自己的心比外面的天氣還涼</s><br />
+依序執行多個指令:<code>ls; pwd; whoami</code> (用<code>;</code>)<br />
+一個一個一個(?)執行下去，但前面的成功才執行下一個:<code>mkdir test &amp;&amp; cd test</code> (用<code>&amp;&amp;</code>)<br />
+前一個指令失敗時才執行下一個:<code>make || echo &quot;Build failed&quot;</code> (用<code>||</code>)<br />
+管道(<code>|</code>)將前一個指令的輸出傳給下一個:<code>cat file | grep &quot;keyword&quot;</code></p>
+<p>好多東西我直接複製貼上</p>
+<ul>
+<li><code>*</code> 匹配任意多個字元（萬用字元）</li>
+<li><code>?</code> 匹配單一字元</li>
+<li><code>~</code> 使用者家目錄（home directory）</li>
+<li><code>$</code> 變數標示，例如 <code>$USER</code>, <code>$PATH</code></li>
+<li><code>#</code> 註解符號（在指令或腳本中忽略該行內容）</li>
+<li><code>\</code> 轉義字元，用來避免符號被解讀</li>
+<li><code>&amp;</code> 將指令放到背景執行 例:<code>python app.py &amp;</code></li>
+</ul>
+<p>講了<code>nano</code>跟<code>vim</code>，反正就是趕緊地去學<code>vim</code>，下次就把你<code>nano</code> ban了</p>
+<p>寫了一題，反正就是<code>cat</code>好像被ban了要你用<code>rev</code>去讀檔案然後在<code>rev</code>回來</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rev /flag | rev</span><br></pre></td></tr></table></figure>
+<p>講了一大堆工具，現在4:57他在飆車完全沒聽懂</p>
+</div>          
+          <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2025/10/25/scist-s6-1-hw/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">SCIST Linux CTF - Writeup</span>
+    </a>
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2025/10/21/hello-world/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">maybe a good night</span>
+    </a>
+    
+  </nav>
+          <div class="dis">
+    
+        
+            
+<div id="tcomment" class="twikoo-container"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
+<script>
+  twikoo.init({
+    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
+    el: '#tcomment',
+    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
+    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
+    // lang: 'zh-CN', // 可選：設定語言
+  });
+</script> 
+        
+        
+    
+</div>
+    </div>
+   </main>
+</div>
+
   <footer class="footer">
     <small class="footer_copyright">
       <div id="bottom-inner">

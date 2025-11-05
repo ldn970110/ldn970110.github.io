@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oops! 找不到頁面。 [ Record of my Journey ]</title>
+<title>動態 [ Record of my Journey ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -250,7 +250,7 @@
             
             
             
-            <a class="menu-link " href="/moments/"> 動態</a>
+            <a class="menu-link active" href="/moments/"> 動態</a>
           
             
             
@@ -281,17 +281,43 @@
     </nav>
   </div>
   
+<link rel="stylesheet" href="/css/moments.css">
+
+
 <div class="wrapper">
-    <main aria-label="Content">
-        <div class="not-found glass-wrapper main-content">
-        <div class="container">
-            <div class="title">404</div>
-            <p class="phrase">Hmm... Seems you lost from my journey.</p>
-            <a class="solution" href="https://ldn970110.github.io">back home</a>
+    <header class="header">
+        <h1 class="header-title center">動態</h1>
+        
+    </header>
+
+    <main class="page-content" aria-label="Content">
+        <div id="moments-page">
+            <div id="mastodon-timeline">
+                <!-- 初始加载提示 -->
+                <div class="timeline-loading">
+                    <div class="spinner"></div>
+                    <span>正在載入動態...</span>
+                </div>
+            </div>
+
+            <!-- 加载更多按钮 -->
+            <button id="load-more-btn">載入更多</button>
+
+            <!-- 全部加载完成的提示 -->
+            <div id="no-more-posts-placeholder"></div>
         </div>
-        </div>
-    </main>  
-</div>    
+    </main>
+</div>
+
+
+<script>
+// 将 Hexo 主题配置传递给 JavaScript
+window.momentsConfig = {"mastodon":{"enable":true,"api":"https://mastodon.social/api/v1/accounts/115421688001526934/statuses","initialLimit":5,"loadMoreLimit":10},"bangumi":{"enable":true,"api":"https://api.bgm.tv/v0/users/1170648/collections?type=2&limit=5&offset=","loadMoreLimit":3}};
+</script>
+
+<script src="/js/moments.js"></script>
+
+
   <footer class="footer">
     <small class="footer_copyright">
       <div id="bottom-inner">
