@@ -1,4 +1,17 @@
 (() => {
+  const setRandomBio = () => {
+    // 透過我們在 index.ejs 設定的 ID 找到該元素
+    const bioElement = document.getElementById("random-bio");
+
+    // 檢查元素是否存在，以及我們從 ejs 傳過來的 window.themeBioList 是否存在且是個列表
+    if (bioElement && window.themeBioList && Array.isArray(window.themeBioList) && window.themeBioList.length > 0) {
+      const bios = window.themeBioList;
+      // 隨機抽取一個索引
+      const randomIndex = Math.floor(Math.random() * bios.length);
+      // 將元素的文字內容替換成隨機抽到的那一句
+      bioElement.innerHTML = bios[randomIndex];
+    }
+  };
 
   // --- DOM 元素选择 ---
   const html = document.documentElement;
@@ -130,6 +143,7 @@
   setCodeBlockLanguages();
   setupEventListeners();
 
-})();
+  setRandomBio();
 
+})();
 
