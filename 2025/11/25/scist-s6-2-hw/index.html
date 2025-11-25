@@ -31,7 +31,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Archives : 11/2025: 2025 [ LDN&#39;s Blog ]</title>
+<title>Record of my Journey [ LDN&#39;s Blog ]</title>
 
   <link rel="icon" href="/img/favicon.ico">
 
@@ -280,83 +280,79 @@
       </div>
     </nav>
   </div>
-  
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay glass-wrapper overlay-bg">
+  <div class="content">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#scist-pythonctf-writeup"><span class="toc-text"> SCIST PythonCTF - Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ppc"><span class="toc-text"> PPC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#department-store-anniversary-100"><span class="toc-text"> Department store anniversary 100</span></a></li></ol></li></ol></li></ol>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
 
 
-  <div class="wrapper">
-    <main class="page-content">
-    <header class="header">
-      <h1 class="header-title center">文章</h1>
-    </header>
-    <div class="archive-container glass-wrapper main-content">    
-      
-      
-      <div class="monthly-archives">
+
+  <main class="page-content" aria-label="Content">
+    <div class="glass-wrapper main-content">
+      <header class="header">
         
-          
-          <div class="archive-month-group">
-            <h2 class="archive-month-title">
-              2025年 十一月
-              <span class="post-count">(2篇)</span>
-            </h2>
+          <div class="tags">
             
-            <ul class="archive-post-list">
-              
-                <li class="archive-post-item glass-wrapper archive-item">
-                  <time class="post-date" datetime="2025-11-25T03:36:14.821Z">
-                    11-25
-                  </time>
-                  <a href="/2025/11/25/scist-s6-2-hw/" class="post-title">
-                    
-                  </a>
-                  
-                  
-                </li>
-              
-                <li class="archive-post-item glass-wrapper archive-item">
-                  <time class="post-date" datetime="2025-11-03T16:53:31.000Z">
-                    11-04
-                  </time>
-                  <a href="/2025/11/04/live-reset-machine/" class="post-title">
-                    人生重來機
-                  </a>
-                  
-                  
-                    <div class="post-tags">
-                      
-                        <a href="/tags/%E6%84%9F%E6%83%B3/" class="tag">#感想</a>
-                      
-                        <a href="/tags/%E5%9B%9E%E6%86%B6/" class="tag">#回憶</a>
-                      
-                    </div>
-                  
-                </li>
-              
-            </ul>
           </div>
         
-      </div>
+          <h1 class="header-title" itemprop="headline"></h1>
+          <div class="post-meta">
+            最後更新: <time>11月 25, 2025</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">LDN97</span>
+            </span>
+            字數: <span class="post-count">216</span>
+            預計閱讀時間: <span class="post-count">1min</span> 
+          </div>       
+      </header>
+          <div class="page-content"><h1 id="scist-pythonctf-writeup"><a class="markdownIt-Anchor" href="#scist-pythonctf-writeup"></a> SCIST PythonCTF - Writeup</h1>
+<h2 id="ppc"><a class="markdownIt-Anchor" href="#ppc"></a> PPC</h2>
+<h3 id="department-store-anniversary-100"><a class="markdownIt-Anchor" href="#department-store-anniversary-100"></a> Department store anniversary 100</h3>
+<p>題目要求進行100次買二送一的挑戰。將商品價格排序後，為了讓免費商品價值最大，我們應該總是選擇清單中價格最高的商品來付費，並讓緊隨其後價格第三高的商品作為免費回饋。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">&quot;210.70.138.221&quot;</span></span><br><span class="line">PORT = <span class="number">10007</span></span><br><span class="line"></span><br><span class="line">r = remote(HOST, PORT)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    r.recvuntil(<span class="string">b&#x27;----- wave &#x27;</span> + <span class="built_in">str</span>(i+<span class="number">1</span>).encode() + <span class="string">b&#x27;/100 -----\n&#x27;</span>)</span><br><span class="line">    text = r.recvline().decode().strip()</span><br><span class="line">    num_str = text.split(<span class="string">&#x27;:&#x27;</span>, <span class="number">1</span>)[<span class="number">1</span>].strip()</span><br><span class="line">    nums = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, num_str.split()))</span><br><span class="line">    nums.sort(reverse=<span class="literal">True</span>)</span><br><span class="line">    s = <span class="built_in">sum</span>([nums[j] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums), <span class="number">3</span>)])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;[+] Wave <span class="subst">&#123;i+<span class="number">1</span>&#125;</span>/100: Answer = <span class="subst">&#123;s&#125;</span>&quot;</span>)</span><br><span class="line">    r.sendlineafter(<span class="string">b&#x27;answer : &#x27;</span>, <span class="built_in">str</span>(s).encode())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(r.recvall().decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"></span><br><span class="line">r.close() </span><br></pre></td></tr></table></figure>
+<p>執行腳本後，程式會自動完成 100 次挑戰，最終回傳包含 Flag 的訊息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hsctf&#123;You_got_the_highest_reward!&#125;</span><br></pre></td></tr></table></figure></div>          
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2025/11/04/live-reset-machine/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">人生重來機</span>
+    </a>
+    
+  </nav>
+          <div class="dis">
+    
+        
+            
+<div id="tcomment" class="twikoo-container"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.44/twikoo.all.min.js"></script> 
+<script>
+  twikoo.init({
+    envId: 'https://ldns-blog-comment.vercel.app/', // 從主題設定讀取 envId
+    el: '#tcomment',
+    // region: 'ap-guangzhou', // 如果您的 Vercel 部署區域不在預設區域，可能需要指定
+    // path: location.pathname, // 通常不需要手動設定，Twikoo 會自動抓取
+    // lang: 'zh-CN', // 可選：設定語言
+  });
+</script> 
+        
+        
+    
+</div>
     </div>
-      <nav class="pagination">
-        <span class="page-number current">1</span>
-      </nav>
-    </main>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const yearToggles = document.querySelectorAll('.year-toggle');
-      
-      yearToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-          const year = this.dataset.year;
-          const content = document.querySelector(`.year-content[data-year="${year}"]`);
-          content.classList.toggle('collapsed');
-          this.textContent = content.classList.contains('collapsed') ? '展开' : '折叠';
-        });
-      });
-    });
-    </script>
+   </main>
+</div>
+
   <footer class="footer">
   <small class="footer_copyright">
     <div id="bottom-inner">
