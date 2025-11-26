@@ -2791,3 +2791,12 @@ html[data-theme=dark] .waline-container .wl-editor textarea::placeholder {
 }
 
 /*----------------------------------以上Waline评论系统样式调整----------------------------------*/
+.post ol {
+  padding-left: 1.2em;     /* 數字與內容的距離 */
+  margin-left: 0.2em;      /* 整體再往內一點，避免太貼邊 */
+  list-style-position: outside;
+}
+
+.post ol li {
+  margin: 0.3em 0;         /* 每行之間留一點空隙，看起來沒那麼擠 */
+}
