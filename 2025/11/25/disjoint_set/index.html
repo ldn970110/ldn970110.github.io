@@ -306,17 +306,17 @@
         
           <h1 class="header-title" itemprop="headline">f260題解</h1>
           <div class="post-meta">
-            最後更新: <time>11月 26, 2025</time>
+            最後更新: <time>11月 27, 2025</time>
             作者: <span itemprop="author">
               <span itemprop="name">LDN97</span>
             </span>
-            字數: <span class="post-count">466</span>
+            字數: <span class="post-count">484</span>
             預計閱讀時間: <span class="post-count">2min</span> 
           </div>       
       </header>
           <div class="page-content"><h1 id="f260-愛八卦的同學"><a class="markdownIt-Anchor" href="#f260-愛八卦的同學"></a> <a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=f260">f260. 愛八卦的同學</a></h1>
 <h2 id="題目分析"><a class="markdownIt-Anchor" href="#題目分析"></a> 題目分析</h2>
-<p>班上有 0 ~ n-1 位同學，並且有 k 對朋友關係 (a, b)，題目定義朋友的朋友也算小團體，因此使用**並查集（Disjoint Set）**解題。</p>
+<p>班上共有編號 0 到 n−1 的同學，並給定 k 組朋友關係 (a, b)。由於題目規定「朋友的朋友」也視為同一小團體，因此可利用並查集 (Disjoint Set) 來進行群組合併與查詢。</p>
 <h2 id="並查集-disjoint-set"><a class="markdownIt-Anchor" href="#並查集-disjoint-set"></a> 並查集 (Disjoint Set)</h2>
 <p>並查集是一種資料結構，用於維護<strong>不相交集合</strong>。主要由兩個操作組成：</p>
 <h3 id="findx-尋找所屬集合的根節點"><a class="markdownIt-Anchor" href="#findx-尋找所屬集合的根節點"></a> Find(x) — 尋找所屬集合的根節點</h3>
